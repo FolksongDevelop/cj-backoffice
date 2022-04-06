@@ -3,10 +3,11 @@ import SignUpForm from './SignUpForm';
 
 const isSignUp = true
 
-describe('SignUpForm Components', () => {
-  const { container } = render(<SignUpForm SignUpForm={isSignUp} />);
-
-  test('SignUpForm component is rendered', () => {
-    expect(getByTestId(container, 'SignUpForm')).toBeInTheDocument()
-  })
+const mockupProfile = {
+  email: 'folklove45@hotmail.com',
+  firstName: 'test',
+  lastName: 'test',
+  password: 'testtest',
+  repeatPassword: 'testtest'
+}
 })
