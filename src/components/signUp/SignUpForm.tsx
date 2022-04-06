@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable jsx-a11y/no-autofocus */
 import {
   Avatar,
   Button,
   TextField,
-  FormControlLabel,
-  Checkbox,
+  // FormControlLabel,
+  // Checkbox,
   Grid,
   Box,
   Typography
@@ -34,7 +35,7 @@ const validateMessage = yup.object().shape({
     .oneOf([yup.ref('password')], 'Passwords must and should match')
 })
 
-const SignUpForm:FC<FormInputs> = ({ setIsSignUp }) => {
+const SignUpForm: FC<FormInputs> = ({ setIsSignUp }) => {
   const {
     register,
     control,
@@ -65,7 +66,7 @@ const SignUpForm:FC<FormInputs> = ({ setIsSignUp }) => {
   }, [])
 
   return (
-    <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <Box data-testid="SignUpForm" sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
@@ -136,7 +137,7 @@ const SignUpForm:FC<FormInputs> = ({ setIsSignUp }) => {
               id="password"
               label="Password"
               type="password"
-              name="password"
+              // name="password"
               fullWidth
               error={!!errors.password}
               helperText={errors.password?.message ?? ''}
@@ -149,7 +150,7 @@ const SignUpForm:FC<FormInputs> = ({ setIsSignUp }) => {
               id="repeatPassword"
               label="Repeat Password"
               type="password"
-              name="repeatPassword"
+              // name="repeatPassword"
               fullWidth
               error={!!errors.repeatPassword}
               helperText={errors.repeatPassword?.message ?? ''}

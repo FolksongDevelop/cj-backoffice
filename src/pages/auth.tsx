@@ -10,7 +10,7 @@ import SignUpForm from '@/components/signUp/SignUpForm';
 
 const theme = createTheme();
 
-const Login = () => {
+const Auth = () => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false)
   const signInProps = (data: { isSignUp: boolean; isForgot: boolean; }) => {
     if (data.isSignUp) {
@@ -22,7 +22,7 @@ const Login = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container data-testid="Auth" component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7}
           sx={{
@@ -43,4 +43,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Auth

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable jsx-a11y/no-autofocus */
 import { 
   Avatar,
@@ -26,7 +27,7 @@ const validateMessage = yup.object().shape({
   password: yup.string().min(6).max(20).required('Password is required')
 })
 
-const SignInForm:FC<FormInputs> = ({ signInProps }) => {
+const SignInForm: FC<FormInputs> = ({ signInProps }) => {
   const {
     register,
     control,
@@ -48,7 +49,7 @@ const SignInForm:FC<FormInputs> = ({ signInProps }) => {
   }
 
   return (
-    <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <Box data-testid="SignInForm" sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
@@ -78,7 +79,7 @@ const SignInForm:FC<FormInputs> = ({ signInProps }) => {
           margin="normal"
           required
           fullWidth
-          name="password"
+          // name="password"
           label="Password"
           type="password"
           id="password"
