@@ -1,14 +1,16 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom/client'
 import '@/assets/css/index.scss'
-// import App from '@/pages/App'
-import Auth from '@/pages/Auth'
+import 'sweetalert2/src/sweetalert2.scss'
+import App from '@/_app'
 
 ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 ).render(
   <React.StrictMode>
-    {/* <App /> */}
-    <Auth />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 )

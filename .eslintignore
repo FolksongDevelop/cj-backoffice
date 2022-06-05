@@ -2,3 +2,9 @@ package-lock.json
 package.json
 node_modules
 public
+
+# don't lint nyc coverage output
+coverage
+.eslintrc.js
+.babel.config.js
+.vite.config.ts

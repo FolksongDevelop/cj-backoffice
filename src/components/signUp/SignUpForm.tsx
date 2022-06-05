@@ -10,13 +10,18 @@ import {
   Box,
   Typography
 } from '@mui/material';
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
+import { useNavigate } from 'react-router-dom'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
+/* interface Props {
+  setIsSignUp: Dispatch<SetStateAction<boolean>>
+}
+ */
 interface FormInputs {
   firstName: string
   lastName: string
@@ -35,7 +40,8 @@ const validateMessage = yup.object().shape({
     .oneOf([yup.ref('password')], 'Passwords must and should match')
 })
 
-const SignUpForm: FC<FormInputs> = ({ setIsSignUp }) => {
+const SignUpForm = () => {
+  const navigate = useNavigate()
   const {
     register,
     control,
@@ -49,11 +55,11 @@ const SignUpForm: FC<FormInputs> = ({ setIsSignUp }) => {
     const old_users = JSON.parse(localStorage.getItem('users')!)
     const duplicateUser = old_users.some((user: { email: string; }) => user?.email === data.email)
     if (duplicateUser) {
-      swal('Fails!', 'Your email duplicate.', 'error')
+      Swal.fire('Fails!', 'Your email duplicate.', 'error')
     } else {
       old_users.push(data)
       localStorage.setItem('users', JSON.stringify(old_users))
-      swal('Success!', 'Your SignUp success!', 'success')
+      Swal.fire('Success!', 'Your SignUp success!', 'success')
     }
     
   }
@@ -170,7 +176,7 @@ const SignUpForm: FC<FormInputs> = ({ setIsSignUp }) => {
         </Button>
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Button size="small" onClick={() => setIsSignUp(false)}>
+            <Button size="small" onClick={() => navigate('/authen?type=signIn')}>
               Already have an account? Sign in
             </Button>
           </Grid>

@@ -10,12 +10,21 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import { FC } from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
+import { useNavigate } from 'react-router-dom'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+
+/* interface Props {
+  signInProps: (
+    data: {
+      isSignUp: boolean;
+      isForgot: boolean;
+    }
+  ) => void
+} */
 
 interface FormInputs {
   email: string
@@ -27,7 +36,8 @@ const validateMessage = yup.object().shape({
   password: yup.string().min(6).max(20).required('Password is required')
 })
 
-const SignInForm: FC<FormInputs> = ({ signInProps }) => {
+const SignInForm = () => {
+  const navigate = useNavigate()
   const {
     register,
     control,
@@ -42,21 +52,21 @@ const SignInForm: FC<FormInputs> = ({ signInProps }) => {
     const findUser = old_users.some((user: { email: string; password: string }) =>
       user?.email === data.email && user?.password === data.password)
     if (findUser) {
-      swal('Success!', 'Your SignIn success!', 'success');
+      Swal.fire('Success!', 'Your SignIn success!', 'success');
     } else {
-      swal('Fails!', 'The email address you entered isn\'t connected to an account.', 'error');
+      Swal.fire('Fails!', 'The email address you entered isn\'t connected to an account.', 'error');
     }
   }
 
   return (
-    <Box data-testid="SignInForm" sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <Box id="SignInForm" sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit(submitForm)} sx={{ mt: 1 }}>
+      <Box id="SubmitForm" component="form" noValidate onSubmit={handleSubmit(submitForm)} sx={{ mt: 1 }}>
         <Controller
           name="email"
           control={control}
@@ -69,7 +79,7 @@ const SignInForm: FC<FormInputs> = ({ signInProps }) => {
               autoComplete="email"
               margin="normal"
               fullWidth
-              id="email"
+              id="Email"
               label="Email Address"
               autoFocus={true}
             />
@@ -82,7 +92,7 @@ const SignInForm: FC<FormInputs> = ({ signInProps }) => {
           // name="password"
           label="Password"
           type="password"
-          id="password"
+          id="Password"
           error={!!errors.password}
           helperText={errors.password?.message ?? ''}
           autoComplete="current-password"
@@ -92,29 +102,26 @@ const SignInForm: FC<FormInputs> = ({ signInProps }) => {
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <Button type="submit" fullWidth
+        <Button id="ButtonSubmit"
+          type="submit" fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-        Sign In
+          Sign In
         </Button>
         <Grid container>
           <Grid item xs>
             <Button size="small"
-              onClick={() => signInProps({
-                isForgot: true,
-                isSignUp: false }
-              )}
+              onClick={() => navigate('/authen?type=forgot')}
             >
               Forgot password?
             </Button>
           </Grid>
           <Grid item>
-            <Button size="small"
-              onClick={() => signInProps({
-                isSignUp: true,
-                isForgot: false}
-              )}
+            <Button 
+              data-testid="ButtonGoToSignUp"
+              size="small"
+              onClick={() => navigate('/authen?type=signUp')}
             >
               {'Don\'t have an account? Sign Up'}
             </Button>
